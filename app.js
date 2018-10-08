@@ -1,15 +1,13 @@
-var express = require('express');
+var express = require("express");
+var bodyParser = require("body-parser");
+var routes = require("./routes/routes.js");
 var app = express();
 
-app.get('/', function(req, res) {
-  response = {
-    message: 'hello, world!'
-  }
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-  console.log('GET / Received');
-  res.send(JSON.stringify(response) + '\n');
-});
+routes(app);
 
-app.listen(3000, function() {
-  console.log('Server Running');
+var server = app.listen(3000, function () {
+    console.log("app running on port.", server.address().port);
 });
